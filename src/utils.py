@@ -1,7 +1,7 @@
 import datetime
 import json
 import os
-from typing import Any, List
+from typing import Any
 
 import pandas as pd
 import requests
@@ -80,7 +80,7 @@ def get_card_number_list(transactions: list[dict[Any, Any]]) -> list:
 
 
 def get_operations_sum(
-        time_data: str, transactions: list[dict[str, Any]], card_number: str
+    time_data: str, transactions: list[dict[str, Any]], card_number: str
 ) -> float:
     """Выводит общую сумму расходов по номеру карты в формате *1234"""
     month = time_data[5:7] + "." + time_data[:4]
@@ -88,9 +88,9 @@ def get_operations_sum(
     for transaction in transactions:
         date = str(transaction["payment_date"])
         if (
-                transaction["card_number"] == card_number
-                and date[3:] == month
-                and transaction["payment_sum"] < 0
+            transaction["card_number"] == card_number
+            and date[3:] == month
+            and transaction["payment_sum"] < 0
         ):
             transactions_sum_list.append(transaction["payment_sum"])
     total_operations_sum = abs(sum(transactions_sum_list))
@@ -109,14 +109,17 @@ def show_cards(time_data: str, transactions: list[dict[Any, Any]]) -> list[dict]
     cards_list = get_card_number_list(transactions)
     for card in cards_list:
         total_spent = get_operations_sum(time_data, transactions, card)
-        card_dict = {"last_digits": card[1:], "total_spent": get_operations_sum(time_data, transactions, card),
-                     "cashback": get_cashback_sum(total_spent)}
+        card_dict = {
+            "last_digits": card[1:],
+            "total_spent": get_operations_sum(time_data, transactions, card),
+            "cashback": get_cashback_sum(total_spent),
+        }
         show_cards_list.append(card_dict)
     return show_cards_list
 
 
 def show_top_5_transactions(
-        time_data: str, transactions: list[dict[str, Any]]
+    time_data: str, transactions: list[dict[str, Any]]
 ) -> list[dict[str, Any]]:
     """Выводит информацию о 5 топ транзакциях по сумме платежа"""
     for transaction in transactions:
@@ -137,8 +140,12 @@ def show_top_5_transactions(
     top_5_transactions = []
     for transaction in sorted_transactions:
         if list_index < 6:
-            top_transaction_dict = {"date": transaction["payment_date"], "amount": transaction["payment_sum"],
-                                    "category": transaction["category"], "description": transaction["description"]}
+            top_transaction_dict = {
+                "date": transaction["payment_date"],
+                "amount": transaction["payment_sum"],
+                "category": transaction["category"],
+                "description": transaction["description"],
+            }
             top_5_transactions.append(top_transaction_dict)
             list_index += 1
     return top_5_transactions
@@ -154,8 +161,14 @@ def fetch_and_show_currency_rates() -> list[dict[str, Any]]:
         result = response.json()
         print(result)
         exchange_rates_list = []
-        usd_rate = {"currency": "USD", "rate": round(result['Valute']['USD']['Value'], 2)}
-        eur_rate = {"currency": "EUR", "rate": round(result['Valute']['EUR']['Value'], 2)}
+        usd_rate = {
+            "currency": "USD",
+            "rate": round(result["Valute"]["USD"]["Value"], 2),
+        }
+        eur_rate = {
+            "currency": "EUR",
+            "rate": round(result["Valute"]["EUR"]["Value"], 2),
+        }
         exchange_rates_list.append(usd_rate)
         exchange_rates_list.append(eur_rate)
         with open("user_settings.json", "w") as f:
