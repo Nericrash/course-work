@@ -38,4 +38,3 @@ def investment_bank(month: str, transactions: list[dict[str, Any]], limit: int) 
     result_list_jsons = json.dumps(result_list)
     logger.info("Stop")
     return result_list_jsons
-

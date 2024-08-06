@@ -1,7 +1,8 @@
 import datetime
 import json
 import os
-from typing import Any, List
+
+from typing import Any
 
 import pandas as pd
 import requests
@@ -48,22 +49,22 @@ def get_xlsx_data_dict(file_name: str) -> list[Any] | str:
         return "File can't be read"
 
 
-def get_greeting(time_data: str) -> str:
+def get_greeting(time_data: datetime) -> str:
     """Принимает текущее время и возвращает приветствие в зависимости от времени суток"""
-    if 0 <= int(time_data[11:13]) <= 5:
+    if 0 <= time_data[11:13] <= 5:
         return "Доброй ночи"
-    elif 6 <= int(time_data[11:13]) <= 11:
+    elif 6 <= time_data[11:13] <= 11:
         return "Доброе утро"
-    elif 12 <= int(time_data[11:13]) <= 17:
+    elif 12 <= time_data[11:13] <= 17:
         return "Добрый день"
     else:
         return "Добрый вечер"
 
 
-def get_time_data() -> str:
+def get_time_data() -> datetime:
     """Возвращает текущее время"""
     time_data = datetime.datetime.now()
-    return str(time_data)
+    return time_data
 
 
 def get_card_number_list(transactions: list[dict[Any, Any]]) -> list:
@@ -145,7 +146,7 @@ def show_top_5_transactions(
 
 
 def fetch_and_show_currency_rates() -> list[dict[str, Any]]:
-    """Выводит курс валют и записывает из в файл .json"""
+    """Выводит курс валют и записывает их в файл .json"""
     try:
         url = "https://www.cbr-xml-daily.ru/daily_json.js"
         headers = {"apikey": api_key}

@@ -1,4 +1,6 @@
 import pytest
+
+
 @pytest.fixture
 def transactions():
     return [
@@ -88,6 +90,8 @@ def transactions():
             "rounded_operation_sum": 357.22,
         },
     ]
+
+
 @pytest.fixture
 def operations_1():
     return [
