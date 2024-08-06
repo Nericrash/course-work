@@ -2,7 +2,7 @@
 name = "pythonproject4"
 version = "0.1.0"
 description = ""
-authors = ["WingBasil <i@vyarygin.ru>"]
+authors = ["YakovIsikeev <Barcas48ru@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
