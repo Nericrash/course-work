@@ -29,6 +29,6 @@ def main_page(date: str) -> str:
     main_dict = {"greeting": greeting, "cards": cards, "top_transcations": top_transcations,
                  "currency_rates": currency_rates}  # "stock_prices": stock_prices
     logger.info("Writing info into json-file")
-    main_dict_jsons = json.dumps(main_dict)
+    main_dict_jsons = json.dumps(main_dict, indent=4, ensure_ascii=False)
     logger.info("Stop")
     return main_dict_jsons
