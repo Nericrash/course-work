@@ -63,21 +63,15 @@ def filter_by_date(operations_df: pd.DataFrame, date: str) -> pd.DataFrame:
 @decorator_spending_by_cat
 def spending_category(transactions: pd.DataFrame, category: str, date: str) -> pd.DataFrame:
     """Возвращает DataFrame по заданной категории за 3 месяца от указанной даты"""
-    logger.info("Start")
-    logger.info(
-        "Creating filtered list by date for last 3 months with another function"
-    )
+    logger.info("Старт")
+    logger.info("Создание отфильтрованного списка по дате за последние 3 месяца с помощью другой функции")
     transactions_filtered_by_3_months = filter_by_date(transactions, date)
-    logger.info("Filtering transactions by category")
+    logger.info("Фильтрация транзакций по категориям")
     if transactions_filtered_by_3_months.empty:
-        return pd.DataFrame()
+        return pd.DataFrame()  # Возвращаем пустой DataFrame, если нет транзакций
     category_transcations = transactions_filtered_by_3_months[
-        transactions_filtered_by_3_months["Категория"] == category]
-    logger.info("Returning filtered DF")
-    logger.info("Stop")
+        transactions_filtered_by_3_months["Категория"] == category
+    ]
+    logger.info("Возвращение отфильтрованного DF")
+    logger.info("Стоп")
     return category_transcations
-
-
-transcations_df = pd.read_excel("../data/operations_2.xlsx")
-result = spending_category(transcations_df, "Каршеринг", "2021-12-31 15:45:34")
-print(result)

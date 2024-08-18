@@ -1,8 +1,8 @@
 import json
 import logging
 
-from src.utils import (fetch_and_show_currency_rates, get_greeting,
-                       get_xlsx_data_dict, show_cards, show_top_5_transactions, get_time_data)
+from src.utils import (fetch_and_show_currency_rates, get_greeting, get_time_data, get_xlsx_data_dict, show_cards,
+                       show_top_5_transactions)
 
 logger = logging.getLogger("main_page.log")
 file_handler = logging.FileHandler("main_page.log", "w")
@@ -18,7 +18,7 @@ def main_page(date: str) -> str:
     logger.info("Converting Excel file to list of dictionaries")
     transactions = get_xlsx_data_dict("../data/operations.xlsx")
     logger.info("Getting greeting")
-    greeting = get_greeting(get_time_data)
+    greeting = get_greeting(get_time_data())
     logger.info("Getting card info")
     cards = show_cards(date, transactions)
     logger.info("Getting top transactions")

@@ -1,7 +1,6 @@
 import datetime
 import json
 import os
-
 from typing import Any
 
 import pandas as pd
@@ -49,7 +48,7 @@ def get_xlsx_data_dict(file_name: str) -> list[Any] | str:
         return "File can't be read"
 
 
-def get_greeting(time_data: datetime) -> str:
+def get_greeting(time_data: Any) -> str:
     """Принимает текущее время и возвращает приветствие в зависимости от времени суток"""
     if 0 <= time_data[11:13] <= 5:
         return "Доброй ночи"
@@ -64,7 +63,7 @@ def get_greeting(time_data: datetime) -> str:
 def get_time_data() -> datetime:
     """Возвращает текущее время"""
     time_data = datetime.datetime.now()
-    return time_data
+    return str(time_data)
 
 
 def get_card_number_list(transactions: list[dict[Any, Any]]) -> list:

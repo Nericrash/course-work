@@ -4,9 +4,8 @@ from unittest.mock import patch
 import pytest
 from dotenv import load_dotenv
 
-from src.utils import (fetch_and_show_currency_rates, get_card_number_list,
-                       get_cashback_sum, get_greeting, get_operations_sum,
-                       show_cards, show_top_5_transactions)
+from src.utils import (fetch_and_show_currency_rates, get_card_number_list, get_cashback_sum, get_greeting,
+                       get_operations_sum, show_cards, show_top_5_transactions)
 
 load_dotenv()
 
