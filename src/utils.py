@@ -150,9 +150,7 @@ def fetch_and_show_currency_rates() -> list[dict[str, Any]]:
         url = "https://www.cbr-xml-daily.ru/daily_json.js"
         headers = {"apikey": api_key}
         response = requests.get(url, headers=headers)
-        print(response)
         result = response.json()
-        print(result)
         exchange_rates_list = []
         usd_rate = {"currency": "USD", "rate": round(result['Valute']['USD']['Value'], 2)}
         eur_rate = {"currency": "EUR", "rate": round(result['Valute']['EUR']['Value'], 2)}
